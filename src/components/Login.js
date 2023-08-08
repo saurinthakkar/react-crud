@@ -2,10 +2,7 @@ import React, { useState, useEffect } from "react";
 import { useNavigate,Link } from "react-router-dom";
 import { Footer } from "./Footer";
 import { Header } from "./Header";
-import "./Login.css";
-import Button from "react-bootstrap/Button";
-import Form from "react-bootstrap/Form";
-import { Row } from "react-bootstrap";
+
 
 export const Login = () => {
 	const [email, setEmail] = useState("");
@@ -18,6 +15,7 @@ export const Login = () => {
 	const handleLogin = (e) => {
 		e.preventDefault();
 
+
 		// Replace these credentials with your actual login validation logic
 		const validEmail = "sthakkar@codal.com"; // Replace with your username
 		const validPassword = "123456"; // Replace with your password
@@ -26,7 +24,7 @@ export const Login = () => {
 			// Redirect to the dashboard page if the credentials are correct
 			setAuthenticated(true);
 			localStorage.setItem("authenticated", true);
-			navigate("/users");
+			navigate("/dashboard");
 		} else {
 			alert("Invalid credentials. Please try again.");
 		}
@@ -37,15 +35,16 @@ export const Login = () => {
 	}, []);
 
 	return (
-		<div>
+		<div className="flex flex-col min-h-screen">
 			<div>
 				<Header />
 			</div>
 
-			<div className="container">
-				{/* <div className="pb-10  text-center">Login</div> */}
-				<div className="border-2 bg-white p-5 rounded border-gray-300">
-					<form>
+			<div className="flex-grow rounded-md bg-gray-50 px-[450px] h-96">
+				<h1 className="py-4 text-lg text-center">Login</h1>
+				<div className="border-2 bg-white p-5 rounded-md border-gray-300">
+					
+					<form onSubmit={handleLogin}>
 						<div className="flex flex-col">
 							<label for="email" className="mb-2">
 								Email Address &nbsp;<span className="text-red-600">*</span>
@@ -79,13 +78,13 @@ export const Login = () => {
 							<div className="text-gray-400 text-xs pb-4">Hint: 123456</div>
 						</div>
 						<div>
-							<button className="bg-blue-700 text-white w-full h-9 rounded-md mb-2">
+							<button type="submit" className="bg-blue-700 text-white w-full h-9 rounded-md mb-2">
 								Login
-								<i class="fa fa-arrow-right w-1"></i>
+								<i class="fa fa-arrow-right w-1 ms-3"></i>
 							</button>
 							<div>
 								Don't have an account?{" "}
-								<Link href="google.com" className="text-blue-700 underline">
+								<Link to="/register" className="text-blue-700 underline">
 									Sign Up
 								</Link>
 							</div>
