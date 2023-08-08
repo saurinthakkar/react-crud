@@ -6,11 +6,9 @@ import {
 	DropdownItem,
 } from "reactstrap";
 
-const Dropdown = () => {
-	const [dropdownOpen, setOpen] = React.useState(false)
-
+const Dropdown = ({actionsArray}) => {
+	const [dropdownOpen, setOpen] = useState(false)
 	const toggle = () => setOpen(!dropdownOpen);
-
 	return (
 		<ButtonDropdown
 			toggle={() => {
@@ -19,12 +17,12 @@ const Dropdown = () => {
 			isOpen={dropdownOpen}
 		>
 			<DropdownToggle className="text-black !pr-8 !hover:bg-transparent" caret>
-				All
+				{actionsArray[0].name}
 			</DropdownToggle>
 			<DropdownMenu className="rounded-none">
-				<DropdownItem>All</DropdownItem>
-				<DropdownItem>Active</DropdownItem>
-				<DropdownItem>Inactive</DropdownItem>
+				{actionsArray.map((data) => (
+					<DropdownItem>{ data.name}</DropdownItem>
+				))}
 			</DropdownMenu>
 		</ButtonDropdown>
 	);

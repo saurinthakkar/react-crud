@@ -62,23 +62,50 @@ export const Users = () => {
 	};
 
 	const actionsArray = [
+		{ function: "sort", name: "All" },
 		{ function: "sort", name: "Active" },
-		{ function: "sort", name: "Active" },
+		{ function: "sort", name: "Inactive" },
 	];
+	const filterPageArray = [
+		{ function: "sort", name: "10" },
+		{ function: "sort", name: "25" },
+		{ function: "sort", name: "50" },
+		{ function: "sort", name: "100" },
+		{ function: "sort", name: "All" },
+	];
+
+	const navigateToViewUser = () => {
+		navigate("/users/view")
+	}
+	const navigateToEditUser = () => {
+		navigate("/users/edit")
+	}
 	const buttonContainer = (
 		<span>
-			<button>view</button>
-			<button>edit</button>
-			<button>del</button>
+			<button type="button" className="btn btn-outline-dark btn-sm" onClick={navigateToViewUser
+			}>
+				<i class="fa fa-eye"></i>
+			</button>
+			<button type="button" className="btn btn-outline-dark btn-sm" onClick={navigateToEditUser}>
+				<i class="fa fa-pencil"></i>
+			</button>
+			<button type="button" className="btn btn-outline-danger btn-sm">
+				<i class="fa fa-trash"></i>
+			</button>
 		</span>
 	);
+
+	
+	const navigateToAddUser = () => {
+		navigate("/users/add");
+	};
 	console.log("MMM", faker, userData);
 	return (
 		<div className="flex flex-col min-h-screen">
 			<div>
 				<Header />
 			</div>
-			<div className="flex-grow rounded-md bg-gray-50 px-[100px] pb-56 min-h-screen flex flex-col">
+			<div className="flex-grow rounded-md bg-gray-50 px-[100px] pb-10 min-h-screen flex flex-col">
 				<div className="mt-4 mb-3 bg-gray-400 h-14 rounded">
 					<div className="py-3 pl-5">
 						<Link to="/dashboard">Dashboard</Link>&nbsp;/ &nbsp;
@@ -91,7 +118,9 @@ export const Users = () => {
 						<div className="flex flex-grow justify-between">
 							<h1 className="text-4xl w-2/5">Users</h1>
 							<div className="">
-								<Button className="my-2 mx-1">+ Add a User</Button>
+								<Button onClick={navigateToAddUser} className="my-2 mx-1">
+									+ Add a User
+								</Button>
 								<Button className="my-2 mx-1 bg-transparent !text-gray-500">
 									<i class="fa fa-xs me-2 fa-random"></i>
 									Add Random Users
@@ -99,7 +128,7 @@ export const Users = () => {
 								<Button className="my-2 mx-1 bg-transparent !text-gray-500">
 									<i class="fa fa-filter fa-xs me-2"></i>Reset Filter
 								</Button>
-								<Button className="my-2 mx-1 btn-outline-danger bg-transparent">
+								<Button className="my-2 mx-1 btn btn-outline-danger btn-sm">
 									<i class="fa fa-trash me-2"></i>Delete All Users
 								</Button>
 							</div>
@@ -108,19 +137,27 @@ export const Users = () => {
 				</div>
 				<div className="flex-grow mt-10 mb-0 flex flex-col">
 					<div className="border-gray-200 border-2 rounded flex flex-col">
-						<div className=" border-black border-2 rounded mx-3 my-6 flex min-h-max flex-col">
-							<div className="flex justify-between">
-								<div className="w-1/2">
+						<div className="rounded mx-3 my-6 flex min-h-max flex-col">
+							<div className="flex justify-between h-20 mt-3">
+								<div className="w-1/2 flex">
 									Show{" "}
 									<span>
-										<Dropdown
-											buttonDropdownName="status"
-											actionsArray={actionsArray}
-										/>
+										<Input bsSize="sm" className="mb-3 ml-3" type="select">
+											<option>10</option>
+											<option>25</option>
+											<option>50</option>
+											<option>100</option>
+											<option>All</option>
+										</Input>
 									</span>
-									&nbsp;entries
+									&nbsp;&nbsp;&nbsp;&nbsp;entries
 								</div>
-								<div className="w-1/2">Search Box</div>
+								<div className="w-1/3 flex justify-end">
+									<label className="mr-3 mt-2">
+										<i class="fa fa-search"></i>
+									</label>
+									<Input className="h-2/4 !w-3/5" />
+								</div>
 							</div>
 							<div>
 								<Table bordered hover>
@@ -153,11 +190,13 @@ export const Users = () => {
 												<Input />
 											</td>
 											<td>
-												<Dropdown
-													buttonDropdownName="status"
-													actionsArray={actionsArray}
-												/>
+												<Input bsSize="sm" className="mb-3 py-2" type="select">
+													<option>All</option>
+													<option>Active</option>
+													<option>Inactive</option>
+												</Input>
 											</td>
+											<td></td>
 										</tr>
 										{userData.map((data) => (
 											<tr key={data.userId}>

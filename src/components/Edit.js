@@ -6,13 +6,13 @@ import { Header } from "./Header";
 import { Footer } from "./Footer";
 import { Button, Input } from "reactstrap";
 
-export const Add = () => {
-	const [firstname, setFirstName] = useState("");
-	const [lastname, setLastName] = useState("");
-	const [emailAddress, setEmailAddress] = useState("");
+export const Edit = () => {
+	const [firstname, setFirstName] = useState("Saurin");
+	const [lastname, setLastName] = useState("Thakkar");
+	const [emailAddress, setEmailAddress] = useState("sthakkar@codal.com");
 	const [gender, setGender] = useState("");
-	const [address, setAddress] = useState("");
-	const [note, setNote] = useState("");
+	const [address, setAddress] = useState("Codal Systems");
+	const [note, setNote] = useState("Notes for code");
 	const [status, setStatus] = useState("");
 	const [emptyFirstName, setEmptyFirstName] = useState(false);
 	const [emptyLastName, setEmptyLastName] = useState(false);
@@ -52,7 +52,7 @@ export const Add = () => {
 					<div className="py-3 pl-5">
 						<Link to="/dashboard">Dashboard</Link>&nbsp;/ &nbsp;
 						<Link to="/users">Users</Link>&nbsp;/ &nbsp;
-						<Link className="text-black no-underline">Add</Link>
+						<Link className="text-black no-underline">Edit</Link>
 					</div>
 				</div>
 				<div className="mt-4 mb-0 font-bold flex justify-between">
