@@ -1,6 +1,8 @@
-import reactLogo from "../assets/react.svg";
+import reactLogo from "../assets/img/react.svg";
 import { Link,useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
+import "../assets/styles/styles.css"
+
 
 export const Header = () => {
 
@@ -13,18 +15,12 @@ export const Header = () => {
 		if (loggedInUser) {
 			setAuthenticated(loggedInUser);
 
-		} else {
-			navigate("/login");
 		}
-		
 	}, [])
-	
-	
 	const handleLogout = () => {
 		localStorage.clear();
 		navigate("/login");
 	};
-	
 	return (
 		<nav className="header-container">
 			<div className="flex bg-black">
@@ -42,9 +38,9 @@ export const Header = () => {
 					Users
 				</Link>)}
 				{authenticated && (
-					<div className="flex-grow flex justify-end pr-20">
-						<button className="text-white " onClick={handleLogout}>
-							Logout
+					<div className="flex-grow flex justify-end pr-20 ">
+						<button className="text-black bg-cyan-500 h-10 px-3 mt-5 rounded" onClick={handleLogout}>
+						<i class="fa fa-power-off me-2"></i>Logout
 						</button>
 					</div>)}
 			</div>

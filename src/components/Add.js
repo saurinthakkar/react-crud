@@ -1,4 +1,5 @@
 import "./add.css";
+import "../assets/styles/styles.css"
 import { useState, useEffect } from "react";
 import { useNavigate,useLocation,Link } from "react-router-dom";
 

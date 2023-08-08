@@ -4,6 +4,8 @@ import { useNavigate } from "react-router-dom";
 import * as faker from "@faker-js/faker";
 import { formattedDate } from "./helper";
 import { Button } from 'react-bootstrap';
+import "../assets/styles/styles.css"
+
 
 function randomProfile() {
 	return {
