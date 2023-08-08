@@ -19,7 +19,7 @@ export const Dashboard = () => {
 					<div className="border-gray-200 border-2 rounded flex flex-col">
 						<div className=" border-black border-2 rounded ml-7 my-6 mr-[800px] flex">
 							<div className="flex-grow flex text-3xl items-center min-w-fit pl-8 py-5">1K</div>
-							<Link className="text-xl pt-3 pr-14" to="/users">
+							<Link className="text-xl pt-10 pr-20 no-underline text-black" to="/users">
 								Users
 								<i class="fa fa-users ms-3 fa-2x"></i>
 							</Link>

@@ -31,15 +31,15 @@ export const Header = () => {
 						alt="React logo"
 					/>
 				</Link>
-				{authenticated && (<Link to="/dashboard" className="pl-5 pt-6 text-white">
+				{authenticated && (<Link to="/dashboard" className="pl-5 pt-6 text-white no-underline">
 					Dashboard
 				</Link>)}
-				{authenticated && (<Link to="/users" className="pl-5 pt-6 text-white">
+				{authenticated && (<Link to="/users" className="pl-5 pt-6 text-white no-underline">
 					Users
 				</Link>)}
 				{authenticated && (
 					<div className="flex-grow flex justify-end pr-20 ">
-						<button className="text-black bg-cyan-500 h-10 px-3 mt-5 rounded" onClick={handleLogout}>
+						<button className="text-black bg-cyan-500 h-10 px-3 mt-3 rounded" onClick={handleLogout}>
 						<i class="fa fa-power-off me-2"></i>Logout
 						</button>
 					</div>)}

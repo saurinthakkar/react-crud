@@ -6,6 +6,7 @@ import { Users } from "./components/Users";
 import { Add } from "./components/Add";
 import { Register } from "./components/Register";
 import { Dashboard } from "./components/Dashboard";
+import 'bootstrap/dist/css/bootstrap.min.css';
 
 function App() {
 	return (
