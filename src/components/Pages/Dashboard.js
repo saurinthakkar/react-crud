@@ -1,16 +1,12 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate, Link } from "react-router-dom";
-import { Footer } from "./Footer";
-import { Header } from "./Header";
-import "../assets/styles/styles.css"
+import { Footer } from "../Footer";
+import { Header } from "../Header";
 
 
 export const Dashboard = () => {
 	return (
 		<div className="flex flex-col min-h-screen">
-			<div>
-				<Header />
-			</div>
 			<div className="flex-grow rounded-md bg-gray-50 px-[100px] pb-56 min-h-screen flex flex-col">
 				<div className="mt-4 mb-0 font-bold">
 					<h1 className="text-4xl">Dashboard</h1>
@@ -27,9 +23,6 @@ export const Dashboard = () => {
 					</div>
 
 				</div>
-			</div>
-			<div>
-				<Footer />
 			</div>
 		</div>
 	);

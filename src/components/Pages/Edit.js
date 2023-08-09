@@ -1,9 +1,7 @@
-
-import "../assets/styles/styles.css";
 import { useState, useEffect } from "react";
 import { useNavigate, useLocation, Link } from "react-router-dom";
-import { Header } from "./Header";
-import { Footer } from "./Footer";
+import { Header } from "../Header";
+import { Footer } from "../Footer";
 import { Button, Input } from "reactstrap";
 
 export const Edit = () => {
@@ -44,9 +42,6 @@ export const Edit = () => {
 
 	return (
 		<div className="flex flex-col min-h-screen">
-			<div>
-				<Header />
-			</div>
 			<div className="flex-grow rounded-md bg-gray-50 px-[100px] pb-5 min-h-screen flex flex-col">
 				<div className="mt-4 mb-3 bg-gray-400 h-14 rounded">
 					<div className="py-3 pl-5">
@@ -166,9 +161,6 @@ export const Edit = () => {
 						</div>
 					</div>
 				</div>
-			</div>
-			<div>
-				<Footer />
 			</div>
 		</div>
 	);

@@ -1,12 +1,13 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate,Link } from "react-router-dom";
-import { Footer } from "./Footer";
-import { Header } from "./Header";
-import "../assets/styles/styles.css"
+import { Footer } from "../Footer";
+import { Header } from "../Header";
+import { fakeAuthProvider } from "../../auth";
 
 
 
 export const Login = () => {
+
 	const [email, setEmail] = useState("");
 	const [password, setPassword] = useState("");
 	const [authenticated, setAuthenticated] = useState(
@@ -24,6 +25,7 @@ export const Login = () => {
 
 		if (email === validEmail && password === validPassword) {
 			// Redirect to the dashboard page if the credentials are correct
+			
 			setAuthenticated(true);
 			localStorage.setItem("authenticated", true);
 			navigate("/dashboard");
@@ -38,10 +40,6 @@ export const Login = () => {
 
 	return (
 		<div className="flex flex-col min-h-screen">
-			<div>
-				<Header />
-			</div>
-
 			<div className="flex-grow rounded-md bg-gray-50 px-[450px] h-96">
 				<h1 className="py-4 text-lg text-center">Login</h1>
 				<div className="border-2 bg-white p-5 rounded-md border-gray-300">
@@ -93,9 +91,6 @@ export const Login = () => {
 						</div>
 					</form>
 				</div>
-			</div>
-			<div>
-				<Footer />
 			</div>
 		</div>
 	);

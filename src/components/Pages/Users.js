@@ -1,14 +1,13 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate, Link } from "react-router-dom";
-import { Footer } from "./Footer";
-import { Header } from "./Header";
-import "../assets/styles/styles.css";
+import { Footer } from "../Footer";
+import { Header } from "../Header";
 import { Button, Input, Table } from "reactstrap";
-import { Pagination } from "./shared/Pagination";
+import { Pagination } from "../shared/Pagination";
 import PropTypes from "prop-types";
-import Dropdown from "./shared/DropDown";
+import Dropdown from "../shared/DropDown";
 import * as faker from "@faker-js/faker";
-import { formattedDate } from "./helper";
+import { formattedDate } from "../../utils/helper";
 
 function randomProfile() {
 	return {
@@ -102,9 +101,6 @@ export const Users = () => {
 	console.log("MMM", faker, userData);
 	return (
 		<div className="flex flex-col min-h-screen">
-			<div>
-				<Header />
-			</div>
 			<div className="flex-grow rounded-md bg-gray-50 px-[100px] pb-10 min-h-screen flex flex-col">
 				<div className="mt-4 mb-3 bg-gray-400 h-14 rounded">
 					<div className="py-3 pl-5">
@@ -221,9 +217,6 @@ export const Users = () => {
 						</div>
 					</div>
 				</div>
-			</div>
-			<div>
-				<Footer />
 			</div>
 		</div>
 	);

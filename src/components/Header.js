@@ -1,4 +1,4 @@
-import reactLogo from "../assets/img/react.svg";
+import reactLogo from "../assets/images/react.svg";
 import { Link,useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
 import "../assets/styles/styles.css"

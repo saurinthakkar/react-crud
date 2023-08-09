@@ -1,6 +1,4 @@
-import githublogo from "../assets/img/github.svg";
-import "../assets/styles/styles.css"
-
+import githublogo from "../assets/images/github.svg";
 
 export const Footer = () => {
 	return (
