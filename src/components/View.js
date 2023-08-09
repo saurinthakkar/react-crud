@@ -80,7 +80,7 @@ export const View = () => {
 									</tr>
 									<tr>
 										<th scope="row">Email</th>
-										<td>sthakkar@codal.com</td>
+										<td><Link className="underline text-blue-600">sthakkar@codal.com</Link></td>
 									</tr>
 									<tr>
 										<th scope="row">Gender</th>
@@ -116,8 +116,8 @@ export const View = () => {
 									<tr>
 										<td colSpan="2">
 											<span className="flex w-1/5 justify-between">
-												<Button><i class="fa fa-pencil fa-xs me-2"></i>Edit</Button>
-												<Button><i class="fa fa-trash me-2"></i>Delete</Button>
+												<button className="btn btn-outline-secondary"><i class="fa fa-pencil fa-xs me-2"></i>Edit</button>
+												<button className="btn btn-outline-danger btn-sm"><i class="fa fa-trash me-2"></i>Delete</button>
 											</span>
 										</td>
 									</tr>

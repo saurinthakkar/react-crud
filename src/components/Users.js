@@ -121,14 +121,14 @@ export const Users = () => {
 								<Button onClick={navigateToAddUser} className="my-2 mx-1">
 									+ Add a User
 								</Button>
-								<Button className="my-2 mx-1 bg-transparent !text-gray-500">
+								<Button className="my-2 mx-1" outline>
 									<i class="fa fa-xs me-2 fa-random"></i>
 									Add Random Users
 								</Button>
-								<Button className="my-2 mx-1 bg-transparent !text-gray-500">
+								<Button className="my-2 mx-1" outline>
 									<i class="fa fa-filter fa-xs me-2"></i>Reset Filter
 								</Button>
-								<Button className="my-2 mx-1 btn btn-outline-danger btn-sm">
+								<Button className="my-2 mx-1" color="danger" outline>
 									<i class="fa fa-trash me-2"></i>Delete All Users
 								</Button>
 							</div>
