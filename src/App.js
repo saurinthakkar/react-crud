@@ -1,53 +1,41 @@
 //import "./styles.css";
 import * as React from "react";
-import { useState,createContext } from "react";
+import { useState, createContext } from "react";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-import { Login } from "./components/Pages/Login";
-import { Users } from "./components/Pages/Users";
-import { Add } from "./components/Pages/Add";
-import { Register } from "./components/Pages/Register";
-import { Dashboard } from "./components/Pages/Dashboard";
-import { Edit } from "./components/Pages/Edit";
-import { View } from "./components/Pages/View";
+import { Login } from "./Pages/Login";
+import { Users } from "./Pages/Users";
+import { Add } from "./Pages/Add";
+import { Register } from "./Pages/Register";
+import { Dashboard } from "./Pages/Dashboard";
+import { Edit } from "./Pages/Edit";
+import { View } from "./Pages/View";
 import { Header } from "./components/Header";
 import { Footer } from "./components/Footer";
-import { fakeAuthProvider } from "./auth";
-import { useContext } from "react";
-import { useAuth } from "./index";
+import { AuthLayout } from "./LayoutRoute/AuthLayout";
+import { NonAuthLayout } from "./LayoutRoute/NonAuthLayout";
+
 function App() {
-	const signin = useAuth()
-	console.log("FREE", signin);
 	return (
-		<Layout>
+		<React.Fragment>
+			<Header />
 			<Routes>
-				<Route path="/login" element={<Login />} />
-				<Route path="/register" element={<Register />} />
-				<Route path="/users" element={<Users />} />
-				<Route path="/users/add" element={<Add />} />
-				<Route path="/users/edit" element={<Edit />} />
-				<Route path="/users/view" element={<View />} />
-				<Route path="/dashboard" element={<Dashboard />} />
-				{/* Add a catch-all route to redirect to the login page */}
+				<Route element={<NonAuthLayout />}>
+					<Route path="/login" element={<Login />} />
+					<Route path="/register" element={<Register />} />
+				</Route>
+
+				<Route path="/" element={<AuthLayout />}>
+					<Route path="users" element={<Users />} />
+					<Route path="users/add" element={<Add />} />
+					<Route path="users/edit" element={<Edit />} />
+					<Route path="users/view" element={<View />} />
+					<Route path="dashboard" element={<Dashboard />} />
+				</Route>
 				<Route path="*" element={<Login />} />
 			</Routes>
-		</Layout>
+			<Footer />
+		</React.Fragment>
 	);
 }
-
-
-
-export const Layout = ({ children }) => {
-	return (
-		<div>
-			<div>
-				<Header />
-			</div>
-			{children}
-			<div>
-				<Footer />
-			</div>
-		</div>
-	);
-};
 
 export default App;

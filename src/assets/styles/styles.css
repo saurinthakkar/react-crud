@@ -155,3 +155,17 @@ textarea {
 .invalid-input{
     border-color:red
 }
+.adduser-address{
+  border:1px solid #ced4da;
+}
+
+.adduser-address:hover,.adduser-address:focus{
+  outline-color: #86b7fe;
+  border:1px solid #86b7fe;
+}
+table{
+  width: 100%;
+}
+td{
+  width: 33%;
+}

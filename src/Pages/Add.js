@@ -1,8 +1,8 @@
 
 import { useState, useEffect } from "react";
 import { useNavigate, useLocation, Link } from "react-router-dom";
-import { Header } from "../Header";
-import { Footer } from "../Footer";
+import { Header } from "../components/Header";
+import { Footer } from "../components/Footer";
 import { Button, Input } from "reactstrap";
 
 export const Add = () => {
@@ -39,7 +39,6 @@ export const Add = () => {
 		}
 	};
 
-	console.log("KKK", state);
 
 	return (
 		<div className="flex flex-col min-h-screen">
@@ -114,11 +113,11 @@ export const Add = () => {
 									<label className="py-2">
 										Gender<span class="required">*</span>
 									</label>
-									<div className="btn-group">
-										<button>Male</button>
-										<button>Female</button>
-										<button>Other</button>
-										<button>Dont want to disclose</button>
+									<div className="btn-group w-1/3">
+										<Button className="active">Male</Button>
+										<Button>Female</Button>
+										<Button>Other</Button>
+										<Button>Dont want to disclose</Button>
 									</div>
 								</div>
 								<div className="fname-lname-label-input-container width-100 pr-3 pb-2">
@@ -127,25 +126,25 @@ export const Add = () => {
 										type="text"
 										value={address}
 										onChange={(e) => setAddress(e.target.value)}
-										className="h-16 rounded-md"
+										className="h-16 rounded-md adduser-address"
 									/>
 								</div>
-								<div className="fname-lname-label-input-container width-100 pr-10 pb-2">
+								<div className="fname-lname-label-input-container width-100 pr-3 pb-2">
 									<label className="py-2">Note</label>
 									<textarea
 										type="text"
 										value={note}
 										onChange={(e) => setNote(e.target.value)}
-										className="h-16 rounded-m"
+										className="h-16 rounded-md adduser-address"
 									/>
 								</div>
 								<div className="fname-lname-label-input-container width-100 pr-10 pb-2">
 									<label className="py-2">
 										Status<span class="required">*</span>
 									</label>
-									<div className="btn-group">
-										<button>Active</button>
-										<button>Inactive</button>
+									<div className="btn-group w-1/5">
+										<Button className="active">Active</Button>
+										<Button>Inactive</Button>
 									</div>
 								</div>
 								<div className="submit-container">

@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { useNavigate, useLocation, Link } from "react-router-dom";
-import { Header } from "../Header";
-import { Footer } from "../Footer";
+import { Header } from "../components/Header";
+import { Footer } from "../components/Footer";
 import { Button, Input, Table } from "reactstrap";
 
 export const View = () => {
@@ -37,9 +37,6 @@ export const View = () => {
 			setEmptyEmail(false);
 		}
 	};
-
-	console.log("KKK", state);
-
 	return (
 		<div className="flex flex-col min-h-screen">
 			<div className="flex-grow rounded-md bg-gray-50 px-[100px] pb-5 min-h-screen flex flex-col">

@@ -1,17 +1,17 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate, Link } from "react-router-dom";
-import { Footer } from "../Footer";
-import { Header } from "../Header";
+import { Footer } from "../components/Footer";
+import { Header } from "../components/Header";
 import { Button, Input, Table } from "reactstrap";
-import { Pagination } from "../shared/Pagination";
+import { Pagination } from "../components/shared/Pagination";
 import PropTypes from "prop-types";
-import Dropdown from "../shared/DropDown";
+import Dropdown from "../components/shared/DropDown";
 import * as faker from "@faker-js/faker";
-import { formattedDate } from "../../utils/helper";
+import { formattedDate } from "../utils/helper";
 
 function randomProfile() {
 	return {
-		userId: faker.faker.datatype.uuid(),
+		userId: faker.faker.phone.imei(),
 		firstname: faker.faker.person.firstName(),
 		lastname: faker.faker.person.lastName(),
 		gender: faker.faker.person.sexType(),
@@ -40,7 +40,6 @@ export const Users = () => {
 
 	useEffect(() => {
 		const loggedInUser = localStorage.getItem("authenticated");
-		console.log("dashboard", loggedInUser);
 		if (loggedInUser) {
 			setAuthenticated(loggedInUser);
 			if (users_group.length > 0) {
@@ -74,31 +73,36 @@ export const Users = () => {
 	];
 
 	const navigateToViewUser = () => {
-		navigate("/users/view")
-	}
+		navigate("/users/view");
+	};
 	const navigateToEditUser = () => {
-		navigate("/users/edit")
-	}
+		navigate("/users/edit");
+	};
 	const buttonContainer = (
-		<span>
-			<button type="button" className="btn btn-outline-dark btn-sm" onClick={navigateToViewUser
-			}>
+		<span className="flex items-center gap-2">
+			<button 
+				type="button"
+				className="btn btn-outline-dark btn-sm flex items-center justify-center p-0 w-6 h-6"
+				onClick={navigateToViewUser}
+			>
 				<i class="fa fa-eye"></i>
 			</button>
-			<button type="button" className="btn btn-outline-dark btn-sm" onClick={navigateToEditUser}>
+			<button
+				type="button"
+				className="btn btn-outline-dark btn-sm flex items-center justify-center p-0 w-6 h-6"
+				onClick={navigateToEditUser}
+			>
 				<i class="fa fa-pencil"></i>
 			</button>
-			<button type="button" className="btn btn-outline-danger btn-sm">
+			<button type="button" className="btn btn-outline-danger btn-sm flex items-center justify-center p-0 w-6 h-6">
 				<i class="fa fa-trash"></i>
 			</button>
 		</span>
 	);
 
-	
 	const navigateToAddUser = () => {
 		navigate("/users/add");
 	};
-	console.log("MMM", faker, userData);
 	return (
 		<div className="flex flex-col min-h-screen">
 			<div className="flex-grow rounded-md bg-gray-50 px-[100px] pb-10 min-h-screen flex flex-col">
@@ -159,7 +163,7 @@ export const Users = () => {
 								<Table bordered hover>
 									<thead>
 										<tr>
-											<th>ID</th>
+											<th >ID</th>
 											<th>First Name</th>
 											<th>Last Name</th>
 											<th>Email</th>
@@ -186,7 +190,7 @@ export const Users = () => {
 												<Input />
 											</td>
 											<td>
-												<Input bsSize="sm" className="mb-3 py-2" type="select">
+												<Input bsSize="sm" className="p-10" type="select">
 													<option>All</option>
 													<option>Active</option>
 													<option>Inactive</option>
@@ -196,10 +200,14 @@ export const Users = () => {
 										</tr>
 										{userData.map((data) => (
 											<tr key={data.userId}>
-												<td>{data?.userId}</td>
+												<td>
+													<Link>{data?.userId}</Link>
+												</td>
 												<td>{data.firstname}</td>
 												<td>{data.lastname}</td>
-												<td>{data.email}</td>
+												<td>
+													<Link to={`mailto:${data.email}`}>{data.email}</Link>
+												</td>
 												<td>{formattedDate(data.createdOn)}</td>
 												<td>Active</td>
 												<td>{buttonContainer}</td>
