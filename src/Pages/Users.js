@@ -28,18 +28,9 @@ export const Users = () => {
 	const [authenticated, setAuthenticated] = useState(null);
 	const navigate = useNavigate();
 
-	const profile = function (max_size) {
-		const users = [];
-		for (let index = 0; index < max_size; index++) {
-			users.push(randomProfile());
-		}
-		return users;
-	};
-
-	const users_group = profile(10);
-
 	useEffect(() => {
 		const loggedInUser = localStorage.getItem("authenticated");
+		const users_group = JSON.parse(localStorage.getItem("STUSERS") || "[]");
 		if (loggedInUser) {
 			setAuthenticated(loggedInUser);
 			if (users_group.length > 0) {
@@ -209,7 +200,7 @@ export const Users = () => {
 													<Link to={`mailto:${data.email}`}>{data.email}</Link>
 												</td>
 												<td>{formattedDate(data.createdOn)}</td>
-												<td>Active</td>
+												<td>{data.status}</td>
 												<td>{buttonContainer}</td>
 											</tr>
 										))}

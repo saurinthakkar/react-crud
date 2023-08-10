@@ -2,8 +2,7 @@ import React, { useState, useEffect } from "react";
 import { useNavigate,Link } from "react-router-dom";
 import { Footer } from "../components/Footer";
 import { Header } from "../components/Header";
-
-
+import * as faker from "@faker-js/faker";
 
 export const Login = () => {
 
@@ -13,18 +12,11 @@ export const Login = () => {
 		localStorage.getItem(localStorage.getItem("authenticated") || false)
 	);
 	const navigate = useNavigate();
-
 	const handleLogin = (e) => {
 		e.preventDefault();
-
-
-		// Replace these credentials with your actual login validation logic
-		const validEmail = "sthakkar@codal.com"; // Replace with your username
-		const validPassword = "123456"; // Replace with your password
-
+		const validEmail = "sthakkar@codal.com";
+		const validPassword = "123456";
 		if (email === validEmail && password === validPassword) {
-			// Redirect to the dashboard page if the credentials are correct
-			
 			setAuthenticated(true);
 			localStorage.setItem("authenticated", true);
 			navigate("/dashboard");
@@ -32,6 +24,35 @@ export const Login = () => {
 			alert("Invalid credentials. Please try again.");
 		}
 	};
+	useEffect(() => {
+
+		function get_random_status (list) {
+			return list[Math.floor((Math.random()*list.length))];
+		  }
+		function randomProfile() {
+			return {
+				userId: faker.faker.phone.imei(),
+				firstname: faker.faker.person.firstName(),
+				lastname: faker.faker.person.lastName(),
+				gender: faker.faker.person.sexType(),
+				birthdate: faker.faker.date.birthdate(),
+				address: faker.faker.location.streetAddress() + faker.faker.phone.number(),
+				email: faker.faker.internet.email(),
+				createdOn: faker.faker.date.past(),
+				status: get_random_status(["Active","Inactive"]),
+			};
+		}
+
+		const profile = function (max_size) {
+			const users = [];
+			for (let index = 0; index < max_size; index++) {
+				users.push(randomProfile());
+			}
+			return users;
+		};
+		const tempUsers = profile(15);
+		localStorage.setItem("STUSERS", JSON.stringify(tempUsers));
+	},[authenticated])
 
 	useEffect(() => {
 		setEmail("sthakkar@codal.com");
