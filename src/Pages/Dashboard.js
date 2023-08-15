@@ -27,7 +27,6 @@ export const Dashboard = () => {
 		const temp = JSON.parse(localStorage.getItem("STUSERS") || "[]");
 		if (temp.length > 0) {
 			setTotalUsers(temp)
-			console.log("123",temp,)
 		}
 	},[])
 	return (

@@ -1,23 +1,21 @@
-
-import { useState, useEffect } from "react";
-import { useNavigate, useLocation, Link } from "react-router-dom";
-import { Header } from "../components/Header";
-import { Footer } from "../components/Footer";
-import { Button, Input } from "reactstrap";
+import { useState, useEffect, useCallback } from "react";
+import { useNavigate, Link } from "react-router-dom";
+import { Button, Input, FormFeedback } from "reactstrap";
+import { getAge } from "../utils/helper";
 
 export const Add = () => {
-	const [firstname, setFirstName] = useState("");
-	const [lastname, setLastName] = useState("");
+	// const initialValues = { firstname: "",lastname:"",};
+	const [firstName, setFirstName] = useState("");
+	const [lastName, setLastName] = useState("");
 	const [emailAddress, setEmailAddress] = useState("");
-	const [gender, setGender] = useState("");
+	const [gender, setGender] = useState("male");
 	const [address, setAddress] = useState("");
 	const [note, setNote] = useState("");
-	const [status, setStatus] = useState("");
-	const [emptyFirstName, setEmptyFirstName] = useState(false);
-	const [emptyLastName, setEmptyLastName] = useState(false);
-	const [emptyEmail, setEmptyEmail] = useState(false);
-
-	const { state } = useLocation();
+	const [status, setStatus] = useState("active");
+	const [errors, setErrors] = useState({});
+	const [submitted, setSubmitted] = useState(false);
+	const [isActiveGender, setIsActiveGender] = useState(1);
+	const [isActiveStatus, setIsActiveStatus] = useState(1);
 
 	const navigate = useNavigate();
 
@@ -25,21 +23,75 @@ export const Add = () => {
 		navigate("/users");
 	};
 
-	const createUser = () => {
-		if (firstname?.length === 0) {
-			setEmptyFirstName(true);
-		} else if (lastname?.length === 0) {
-			setEmptyLastName(true);
-		} else if (emailAddress?.length === 0) {
-			setEmailAddress(true);
-		} else {
-			setEmptyFirstName(false);
-			setEmptyLastName(false);
-			setEmptyEmail(false);
+	const createUser = (e) => {
+		e.preventDefault();
+		setSubmitted(true);
+		validate();
+		if (Object.keys(errors).length === 0 && submitted) {
+			const tempUsers = JSON.parse(localStorage.getItem("STUSERS"));
+			const sampleDate = new Date("January 1, 2000 23:15:30 UTC").toJSON();
+			tempUsers.unshift({
+				address,
+				age: getAge(sampleDate),
+				createdOn: sampleDate,
+				email: emailAddress,
+				firstname: firstName,
+				gender,
+				lastname: lastName,
+				note,
+				updatedAt: new Date().toJSON(),
+				status,
+				userId: "1111",
+			});
+			//To do :- Add random string function for userid and add toast message for createUser
+			localStorage.setItem('STUSERS',JSON.stringify(tempUsers))
 		}
 	};
 
+	const validate = useCallback(() => {
+		const errors = {};
+		const regex = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/i;
+		if (submitted) {
+			if (firstName.length === 0) {
+				errors.firstName = "Empty Username";
+			}
+			if (lastName.length === 0) {
+				errors.lastName = "Empty lastname";
+			}
 
+			if (emailAddress.length === 0) {
+				errors.emailAddress = "Empty Email";
+			} else if (!regex.test(emailAddress)) {
+				errors.emailAddress = "Invalid Email";
+			}
+		}
+		setErrors(errors);
+	}, [emailAddress, firstName.length, lastName.length, submitted]);
+
+	useEffect(() => {
+		validate();
+	}, [emailAddress, firstName.length, lastName.length, validate]);
+
+	const setGenderFromButton = (e, id) => {
+		setIsActiveGender(id);
+		setGender(e.target.innerText.toLowerCase());
+	};
+
+	const setStatusFromButton = (e, id) => {
+		setIsActiveStatus(id);
+		setStatus(e.target.innerText);
+	};
+	const genderButtonNames = [
+		{ id: 1, name: "Male" },
+		{ id: 2, name: "Female" },
+		{ id: 3, name: "Other" },
+		{ id: 4, name: "Don't want to disclose" },
+	];
+
+	const statusButtonNames = [
+		{ id: 1, name: "Active" },
+		{ id: 2, name: "Inactive" },
+	];
 	return (
 		<div className="flex flex-col min-h-screen">
 			<div className="flex-grow rounded-md bg-gray-50 px-[100px] pb-5 min-h-screen flex flex-col">
@@ -67,57 +119,69 @@ export const Add = () => {
 								<div className="w-full flex">
 									<div className="fname-lname-label-input-container w-1/2 pr-3 py-2">
 										<label className="py-2">
-											First Name<span class="required">*</span>
+											First Name&nbsp;<span class="required">*</span>
 										</label>
 										<Input
 											type="text"
-											value={firstname}
+											value={firstName}
 											onChange={(e) => setFirstName(e.target.value)}
-											required
+											{...(firstName.length === 0 ? "required" : "")}
+											invalid={errors?.firstName}
 										/>
-										{emptyFirstName && (
-											<div class="invalid-feedback">Required</div>
-										)}
+
+										<FormFeedback class="invalid-feedback">
+											{errors?.firstName}
+										</FormFeedback>
 									</div>
 									<div className="fname-lname-label-input-container w-1/2 pr-3 py-2">
 										{" "}
 										<label className="py-2">
-											Last Name<span class="required">*</span>
+											Last Name&nbsp;<span class="required">*</span>
 										</label>
 										<Input
 											type="text"
-											value={lastname}
+											value={lastName}
 											onChange={(e) => setLastName(e.target.value)}
-											required
 											className="invalid-input"
+											invalid={errors?.lastName}
 										/>
-										{emptyLastName && (
-											<div class="invalid-feedback">Required</div>
-										)}
+										<FormFeedback class="invalid-feedback">
+											{errors?.lastName}
+										</FormFeedback>
 									</div>
 								</div>
 								<div className="fname-lname-label-input-container width-100 padding-right-10">
 									<label className="py-2">
-										Email Address<span class="required">*</span>
+										Email Address&nbsp;<span class="required">*</span>
 									</label>
 									<Input
 										type="text"
 										value={emailAddress}
 										onChange={(e) => setEmailAddress(e.target.value)}
-										required
 										className="invalid-input"
+										invalid={errors?.emailAddress}
 									/>
-									{emptyEmail && <div class="invalid-feedback">Required</div>}
+									<FormFeedback class="invalid-feedback">
+										{errors?.emailAddress}
+									</FormFeedback>
 								</div>
 								<div className="flex flex-col pb-2">
 									<label className="py-2">
-										Gender<span class="required">*</span>
+										Gender&nbsp;<span class="required">*</span>
 									</label>
+
 									<div className="btn-group w-1/3">
-										<Button className="active">Male</Button>
-										<Button>Female</Button>
-										<Button>Other</Button>
-										<Button>Dont want to disclose</Button>
+										{genderButtonNames.map((button) => {
+											return (
+												<Button
+													key={button.id}
+													onClick={(e) => setGenderFromButton(e, button.id)}
+													active={isActiveGender === button.id}
+												>
+													{button.name}
+												</Button>
+											);
+										})}
 									</div>
 								</div>
 								<div className="fname-lname-label-input-container width-100 pr-3 pb-2">
@@ -140,15 +204,22 @@ export const Add = () => {
 								</div>
 								<div className="fname-lname-label-input-container width-100 pr-10 pb-2">
 									<label className="py-2">
-										Status<span class="required">*</span>
+										Status&nbsp;<span class="required">*</span>
 									</label>
 									<div className="btn-group w-1/5">
-										<Button className="active">Active</Button>
-										<Button>Inactive</Button>
+										{statusButtonNames.map((button) => (
+											<Button
+												key={button.id}
+												onClick={(e) => setStatusFromButton(e, button.id)}
+												active={isActiveStatus === button.id}
+											>
+												{button.name}
+											</Button>
+										))}
 									</div>
 								</div>
 								<div className="submit-container">
-									<button>Add</button>
+									<Button type="submit">Add</Button>
 									<button>
 										<i
 											class="fa fa-random"

@@ -149,6 +149,7 @@ textarea {
 }
 
 .invalid-feedback{
+  display: block !important;
     color:red;
 }
 

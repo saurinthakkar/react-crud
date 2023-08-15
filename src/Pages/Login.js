@@ -1,11 +1,9 @@
 import React, { useState, useEffect } from "react";
-import { useNavigate,Link } from "react-router-dom";
-import { Footer } from "../components/Footer";
-import { Header } from "../components/Header";
+import { useNavigate, Link } from "react-router-dom";
+import { getAge } from "../utils/helper";
 import * as faker from "@faker-js/faker";
 
 export const Login = () => {
-
 	const [email, setEmail] = useState("");
 	const [password, setPassword] = useState("");
 	const [authenticated, setAuthenticated] = useState(
@@ -20,39 +18,40 @@ export const Login = () => {
 			setAuthenticated(true);
 			localStorage.setItem("authenticated", true);
 			navigate("/dashboard");
+			const tempUsers = profile(15);
+			localStorage.setItem("STUSERS", JSON.stringify(tempUsers));
 		} else {
 			alert("Invalid credentials. Please try again.");
 		}
 	};
-	useEffect(() => {
 
-		function get_random_status (list) {
-			return list[Math.floor((Math.random()*list.length))];
-		  }
-		function randomProfile() {
-			return {
-				userId: faker.faker.phone.imei(),
-				firstname: faker.faker.person.firstName(),
-				lastname: faker.faker.person.lastName(),
-				gender: faker.faker.person.sexType(),
-				birthdate: faker.faker.date.birthdate(),
-				address: faker.faker.location.streetAddress() + faker.faker.phone.number(),
-				email: faker.faker.internet.email(),
-				createdOn: faker.faker.date.past(),
-				status: get_random_status(["Active","Inactive"]),
-			};
-		}
-
-		const profile = function (max_size) {
-			const users = [];
-			for (let index = 0; index < max_size; index++) {
-				users.push(randomProfile());
-			}
-			return users;
+	
+	function get_random_status(list) {
+		return list[Math.floor(Math.random() * list.length)];
+	}
+	function randomProfile() {
+		return {
+			address: faker.faker.location.streetAddress() + faker.faker.phone.number(),
+			age: getAge(faker.faker.date.birthdate()),
+			createdAt: faker.faker.date.past(),
+			email: faker.faker.internet.email(),
+			firstname: faker.faker.person.firstName(),
+			gender: faker.faker.person.sexType(),
+			userId: faker.faker.phone.number(),
+			lastname: faker.faker.person.lastName(),
+			note:faker.faker.person.bio(),
+			status: get_random_status(["Active", "Inactive"]),
+			updatedAt:new Date().toJSON()
 		};
-		const tempUsers = profile(15);
-		localStorage.setItem("STUSERS", JSON.stringify(tempUsers));
-	},[authenticated])
+	}
+
+	const profile = function (max_size) {
+		const users = [];
+		for (let index = 0; index < max_size; index++) {
+			users.push(randomProfile());
+		}
+		return users;
+	};
 
 	useEffect(() => {
 		setEmail("sthakkar@codal.com");
@@ -63,7 +62,6 @@ export const Login = () => {
 			<div className="flex-grow rounded-md bg-gray-50 px-[450px] h-96">
 				<h1 className="py-4 text-lg text-center">Login</h1>
 				<div className="border-2 bg-white p-5 rounded-md border-gray-300">
-					
 					<form onSubmit={handleLogin}>
 						<div className="flex flex-col">
 							<label for="email" className="mb-2">
@@ -98,7 +96,10 @@ export const Login = () => {
 							<div className="text-gray-400 text-xs pb-4">Hint: 123456</div>
 						</div>
 						<div>
-							<button type="submit" className="bg-blue-700 text-white w-full h-9 rounded-md mb-2">
+							<button
+								type="submit"
+								className="bg-blue-700 text-white w-full h-9 rounded-md mb-2"
+							>
 								Login
 								<i class="fa fa-arrow-right w-1 ms-3"></i>
 							</button>

@@ -1,5 +1,5 @@
 import * as React from "react";
-import { Navigate, Routes, Route } from "react-router-dom";
+import { Routes, Route } from "react-router-dom";
 import { Login } from "./Pages/Login";
 import { Users } from "./Pages/Users";
 import { Add } from "./Pages/Add";
@@ -29,7 +29,7 @@ function App() {
 					<Route path="users/view" element={<View />} />
 					<Route path="dashboard" element={<Dashboard />} />
 				</Route>
-				<Route path="*" element={<Navigate to="/login" replace/>} />
+				<Route path="*" element={<Login/>} />
 			</Routes>
 			<Footer />
 		</React.Fragment>

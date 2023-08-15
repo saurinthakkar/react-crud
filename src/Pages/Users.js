@@ -1,27 +1,9 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate, Link } from "react-router-dom";
-import { Footer } from "../components/Footer";
-import { Header } from "../components/Header";
 import { Button, Input, Table } from "reactstrap";
 import { Pagination } from "../components/shared/Pagination";
-import PropTypes from "prop-types";
-import Dropdown from "../components/shared/DropDown";
 import * as faker from "@faker-js/faker";
 import { formattedDate } from "../utils/helper";
-
-function randomProfile() {
-	return {
-		userId: faker.faker.phone.imei(),
-		firstname: faker.faker.person.firstName(),
-		lastname: faker.faker.person.lastName(),
-		gender: faker.faker.person.sexType(),
-		birthdate: faker.faker.date.birthdate(),
-		address: faker.faker.location.streetAddress() + faker.faker.phone.number(),
-		email: faker.faker.internet.email(),
-		createdOn: faker.faker.date.past(),
-		status: faker.faker.person.prefix(),
-	};
-}
 
 export const Users = () => {
 	const [userData, setUserData] = useState([]);
